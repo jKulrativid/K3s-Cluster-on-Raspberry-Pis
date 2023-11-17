@@ -16,6 +16,7 @@ mkdir ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config
 sudo chmod 600 ~/.kube/config && export KUBECONFIG=~/.kube/config
 echo "export KUBECONFIG=~/.kube/config" >> ~/.profile
+sudo chown $USER ~/.kube/config
 
 kubectl cluster-info
 
