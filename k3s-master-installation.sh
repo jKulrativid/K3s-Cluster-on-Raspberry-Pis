@@ -8,7 +8,7 @@ sudo apt upgrade -y
 # Install vim for debugging purpose
 sudo apt install -y vim curl wget net-tools
 
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.112" sh -
 
 sudo systemctl status k3s
 
