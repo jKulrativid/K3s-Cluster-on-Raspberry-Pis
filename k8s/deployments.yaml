@@ -17,7 +17,11 @@ spec:
       containers:
       - name: web-app
         image: docker.io/jkulrativ/sds-web:latest
-        command: ["pnpm start"]
+        command:
+        - /bin/bash
+        - -c
+        args: 
+        - pnpm start
         ports:
         - containerPort: 3000
         resources:
