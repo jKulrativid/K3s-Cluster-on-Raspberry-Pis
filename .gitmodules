@@ -1,0 +1,9 @@
+[submodule "sds-api-gateway"]
+	path = sds-api-gateway
+	url = https://github.com/Kantaponn/sds-api-gateway.git
+[submodule "sds-microservice-monorepo"]
+	path = sds-microservice-monorepo
+	url = https://github.com/Polapob/sds-microservice-monorepo.git
+[submodule "secretrecipe-frontend-nextjs"]
+	path = secretrecipe-frontend-nextjs
+	url = https://github.com/FinalJTth/secretrecipe-frontend-nextjs.git
