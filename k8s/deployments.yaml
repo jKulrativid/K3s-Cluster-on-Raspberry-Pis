@@ -1,0 +1,159 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app
+        image: jkulrativ/sds-web:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-app
+  labels:
+    app: gateway-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-app
+  template:
+    metadata:
+      labels:
+        app: gateway-app
+    spec:
+      containers:
+      - name: gateway-app
+        image: jkulrativ/sds-gateway:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        env:
+        - name: chef_url
+          value: "http://chef-service:50001"
+        - name: recipe_url
+          value: "http://recipe-service:50001"
+        - name: review_url
+          value: "http://review-service:50001"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chef-app
+  labels:
+    app: chef-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chef-app
+  template:
+    metadata:
+      labels:
+        app: chef-app
+    spec:
+      containers:
+      - name: chef-app
+        image: polapob/chef-service:1.0
+        ports:
+        - containerPort: 50001
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-app
+  labels:
+    app: recipe-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-app
+  template:
+    metadata:
+      labels:
+        app: recipe-app
+    spec:
+      containers:
+      - name: recipe-app
+        image: polapob/recipe-service:1.0
+        ports:
+        - containerPort: 50002
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-app
+  labels:
+    app: review-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: review-app
+  template:
+    metadata:
+      labels:
+        app: review-app
+    spec:
+      containers:
+      - name: review-app
+        image: polapob/review-service:1.0
+        ports:
+        - containerPort: 50003
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
