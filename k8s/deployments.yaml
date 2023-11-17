@@ -32,12 +32,10 @@ spec:
             memory: "256Mi"
             cpu: "500m"
         livenessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 3000
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 2
+          initialDelaySeconds: 15
+          periodSeconds: 3
 
 ---
 
@@ -69,6 +67,11 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 3
         env:
         - name: chef_url
           value: "http://chef-service:50001"
@@ -107,6 +110,11 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+        livenessProbe:
+          tcpSocket:
+            port: 50001
+          initialDelaySeconds: 15
+          periodSeconds: 3
 
 ---
 
@@ -138,6 +146,11 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+        livenessProbe:
+          tcpSocket:
+            port: 50002
+          initialDelaySeconds: 15
+          periodSeconds: 3
 
 ---
 
@@ -169,3 +182,8 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+        livenessProbe:
+          tcpSocket:
+            port: 50003
+          initialDelaySeconds: 15
+          periodSeconds: 3
