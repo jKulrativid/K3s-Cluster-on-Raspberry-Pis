@@ -25,4 +25,4 @@ sudo -i <<EOF
 echo " cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" >> /boot/cmdline.txt
 EOF
 
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=K10194a68c519a4045c1160a190fcd9c9b54cd5a61516c786b6bfc8bf5831e7abe2::server:1aeee21ffbf7dfb3475c95c9d7cbea09 sh -
+curl -sfL https://get.k3s.io | K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=K104597e0ff0524ee24995350b30f1d4210a5613d270753fe19083bb4b2798ce3de::server:bc1c1373d088eebc76d3d4bdd605002e sh -

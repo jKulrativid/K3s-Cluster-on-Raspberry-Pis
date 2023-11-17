@@ -8,17 +8,18 @@ sudo apt upgrade -y
 # Install vim for debugging purpose
 sudo apt install -y vim curl wget net-tools
 
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.112" sh -
+# Install K3s with docker
+curl https://releases.rancher.com/install-docker/20.10.sh | sh
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.112" sh -s - --docker
 
-sudo systemctl status k3s
-
-mkdir ~/.kube
-sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chown $USER ~/.kube/config
-sudo chmod 600 ~/.kube/config && export KUBECONFIG=~/.kube/config
-echo "export KUBECONFIG=~/.kube/config" >> ~/.profile
-sudo chown $USER ~/.kube/config
+## then switch to the root user
+sudo -i
 
 kubectl cluster-info
 
 ## generate token for worker to join
 k3s token create
+
+## port forwarding
+kubectl port-forward service/web-service 80:3000
+kubectl port-forward service/gateway-service 8080:8080
