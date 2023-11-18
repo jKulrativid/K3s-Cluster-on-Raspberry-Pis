@@ -17,6 +17,7 @@ spec:
       containers:
       - name: web-app
         image: docker.io/jkulrativ/sds-web:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
         resources:
@@ -53,6 +54,7 @@ spec:
       containers:
       - name: gateway-app
         image: docker.io/jkulrativ/sds-gateway:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         resources:
@@ -96,6 +98,7 @@ spec:
       containers:
       - name: chef-app
         image: docker.io/polapob/chef-service:1.0-linux-arm64
+        imagePullPolicy: Always
         ports:
         - containerPort: 50001
         resources:
@@ -132,6 +135,7 @@ spec:
       containers:
       - name: recipe-app
         image: docker.io/polapob/recipe-service:1.0-linux-arm64
+        imagePullPolicy: Always
         ports:
         - containerPort: 50002
         resources:
@@ -168,6 +172,7 @@ spec:
       containers:
       - name: review-app
         image: docker.io/polapob/review-service:1.0-linux-arm64
+        imagePullPolicy: Always
         ports:
         - containerPort: 50003
         resources:
