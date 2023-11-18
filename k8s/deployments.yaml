@@ -73,9 +73,9 @@ spec:
         - name: chef_url
           value: "http://chef-service:50001"
         - name: recipe_url
-          value: "http://recipe-service:50001"
+          value: "http://recipe-service:50002"
         - name: review_url
-          value: "http://review-service:50001"
+          value: "http://review-service:50003"
 
 ---
 
