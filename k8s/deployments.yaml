@@ -100,7 +100,7 @@ spec:
     spec:
       containers:
       - name: chef-app
-        image: docker.io/polapob/chef-service:1.0
+        image: docker.io/polapob/chef-service:1.0-linux-arm64
         ports:
         - containerPort: 50001
         resources:
@@ -136,7 +136,7 @@ spec:
     spec:
       containers:
       - name: recipe-app
-        image: docker.io/polapob/recipe-service:1.0
+        image: docker.io/polapob/recipe-service:1.0-linux-arm64
         ports:
         - containerPort: 50002
         resources:
@@ -172,7 +172,7 @@ spec:
     spec:
       containers:
       - name: review-app
-        image: docker.io/polapob/review-service:1.0
+        image: docker.io/polapob/review-service:1.0-linux-arm64
         ports:
         - containerPort: 50003
         resources:
