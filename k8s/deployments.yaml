@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
+  name: web-deployment
   labels:
-    app: web-app
+    app: web-deployment
 spec:
   replicas: 1
   selector:
@@ -38,9 +38,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gateway-app
+  name: gateway-deployment
   labels:
-    app: gateway-app
+    app: gateway-deployment
 spec:
   replicas: 1
   selector:
@@ -82,9 +82,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chef-app
+  name: chef-deployment
   labels:
-    app: chef-app
+    app: chef-deployment
 spec:
   replicas: 1
   selector:
@@ -119,9 +119,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recipe-app
+  name: recipe-deployment
   labels:
-    app: recipe-app
+    app: recipe-deployment
 spec:
   replicas: 1
   selector:
@@ -156,9 +156,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: review-app
+  name: review-deployment
   labels:
-    app: review-app
+    app: review-deployment
 spec:
   replicas: 1
   selector:
