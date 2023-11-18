@@ -71,11 +71,11 @@ spec:
           periodSeconds: 3
         env:
         - name: chef_url
-          value: "http://chef-service:50001"
+          value: "http://192.168.56.112:50001"
         - name: recipe_url
-          value: "http://recipe-service:50002"
+          value: "http://192.168.56.112:50002"
         - name: review_url
-          value: "http://review-service:50003"
+          value: "http://192.168.56.112:50003"
 
 ---
 
