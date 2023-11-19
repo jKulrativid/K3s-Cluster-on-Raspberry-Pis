@@ -131,7 +131,7 @@ sudo reboot
 
 ## Then Install K3s Agent
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.3x" K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=K10847bc717d8b780758836205fd170855c4e5783c5d97d7332e8171a4e52c528c2::server:3f035919a6dd45cf2069d435bd0f8667 sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --node-ip=192.168.56.3x" K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=<YOUR TOKEN> sh -
 ```
 
 # Deployment
