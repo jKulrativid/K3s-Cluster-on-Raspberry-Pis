@@ -2,6 +2,10 @@
 
 # K3s Cluster Installation
 
+## Hardware Details
+VM -> Ubuntu 22.04 (x86) with 2GB RAM & 
+Worker -> Raspberry Pi Pico
+
 ## Network and IP
 ```
 Network             : 192.168.56.0/24
@@ -65,7 +69,7 @@ sudo apt install -y vim curl wget net-tools
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.113" K3S_URL=https://192.168.56.112:6443 K3S_ARGS="--kube-apiserver-arg=default-not-ready-toleration-seconds=5 --kube-apiserver-arg=default-unreachable-toleration-seconds=5 --kube-apiserver-arg=default-uncordon-toleration-seconds=5 --kube-apiserver-arg=default-delete-local-data-delay=5 --kube-apiserver-arg=default-pod-eviction-timeout=5s --kube-apiserver-arg=default-pod-eviction-headroom=5s" K3S_TOKEN=<YOUR TOKEN> sh -s - server --server https://192.168.56.112:6443
 ```
 
-#### Taint the node so that no pod will be schedule here
+#### Taint the node in master-1 so that no pod will be schedule here
 ```bash
 kubectl taint nodes master-2 special=true:NoSchedule
 ```
@@ -127,7 +131,7 @@ sudo reboot
 
 ## Then Install K3s Agent
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.35" K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=K10847bc717d8b780758836205fd170855c4e5783c5d97d7332e8171a4e52c528c2::server:3f035919a6dd45cf2069d435bd0f8667 sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.3x" K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=K10847bc717d8b780758836205fd170855c4e5783c5d97d7332e8171a4e52c528c2::server:3f035919a6dd45cf2069d435bd0f8667 sh -
 ```
 
 # Deployment
