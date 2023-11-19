@@ -1,6 +1,19 @@
 # Installation Guide
 
+# K3s Cluster Installation
+
+## Network and IP
+```
+Network             : 192.168.56.0/24
+PC Ethernet Port IP : 192.168.56.111
+Master-1 IP         : 192.168.56.112
+Master-2 IP         : 192.168.56.113
+Worker-x IP         : 192.168.56.3x
+```
+
 ## K3s Master Installation
+#### config static network as defined in the first section
+
 #### Update & Upgrade OS
 ```bash
 sudo apt update
@@ -34,6 +47,8 @@ sudo cat /var/lib/rancher/k3s/server/token
 ```
 
 ## K3s Master Replica Installation
+#### config static network as defined in the first section
+
 #### Update & Upgrade OS
 ```bash
 sudo apt update
@@ -47,7 +62,7 @@ sudo apt install -y vim curl wget net-tools
 
 #### Install K3s
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.113" K3S_URL=https://192.168.56.112:6443 K3S_ARGS="--kube-apiserver-arg=default-not-ready-toleration-seconds=5 --kube-apiserver-arg=default-unreachable-toleration-seconds=5 --kube-apiserver-arg=default-uncordon-toleration-seconds=5 --kube-apiserver-arg=default-delete-local-data-delay=5 --kube-apiserver-arg=default-pod-eviction-timeout=5s --kube-apiserver-arg=default-pod-eviction-headroom=5s" K3S_TOKEN=K10b3c71e9d827d701deeb40eea7e2426d72687bd7aa052cddf011d146715600f8e::server:3f0e3e6d5b7e5503075cbb121ee6d886 sh -s - server --server https://192.168.56.112:6443
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.113" K3S_URL=https://192.168.56.112:6443 K3S_ARGS="--kube-apiserver-arg=default-not-ready-toleration-seconds=5 --kube-apiserver-arg=default-unreachable-toleration-seconds=5 --kube-apiserver-arg=default-uncordon-toleration-seconds=5 --kube-apiserver-arg=default-delete-local-data-delay=5 --kube-apiserver-arg=default-pod-eviction-timeout=5s --kube-apiserver-arg=default-pod-eviction-headroom=5s" K3S_TOKEN=<YOUR TOKEN> sh -s - server --server https://192.168.56.112:6443
 ```
 
 #### Taint the node so that no pod will be schedule here
@@ -66,12 +81,65 @@ kubectl cluster-info
 ```
 
 ## K3s Agent Installation
-#### config network in /etc/dhcpcd.conf
-```
-interface eth0
+#### config static network as defined in the first section
+
+#### Update & Upgrade OS
+sudo apt update
+sudo apt upgrade -y
+
+#### Config Network in Pi
+```bash
+cat << EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+cat << EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sudo -i
+cat << EOF | sudo tee /etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOF
+exit
 ```
 
-## Finally Run (tmux recommended)
+#### Reset Network Config and Disable Swap
+```bash
+sudo sysctl --system
+sudo swapoff -a
+```
+
+#### Add CGroup
+```bash
+sudo -i <<EOF
+echo " cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" >> /boot/cmdline.txt
+EOF
+```
+
+#### Then Reboot
+```bash
+sudo reboot
+```
+
+## Then Install K3s Agent
+```bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.35" K3S_URL=https://192.168.56.112:6443 K3S_TOKEN=K10847bc717d8b780758836205fd170855c4e5783c5d97d7332e8171a4e52c528c2::server:3f035919a6dd45cf2069d435bd0f8667 sh -
+```
+
+# Deployment
+
+## At Master Node
+
+#### Apply Deployments and Services
+```bash
+make install_app
+```
+
+#### Finally Run (tmux recommended)
 ```bash
 kubectl port-forward -n default service/web-service 3000:3000 --address 0.0.0.0
 kubectl port-forward -n default service/gateway-service 8080:8080 --address 0.0.0.0
