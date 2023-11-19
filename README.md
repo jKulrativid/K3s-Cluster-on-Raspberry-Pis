@@ -144,11 +144,7 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --node-ip=192.168.56.3x"
 make install_app
 ```
 
-#### Finally Run (tmux recommended)
+#### Port-forward All Services (tmux recommended)
 ```bash
-kubectl port-forward -n default service/web-service 3000:3000 --address 0.0.0.0
-kubectl port-forward -n default service/gateway-service 8080:8080 --address 0.0.0.0
-kubectl port-forward -n default service/chef-service 50001:50001 --address 0.0.0.0
-kubectl port-forward -n default service/recipe-service 50002:50002 --address 0.0.0.0
-kubectl port-forward -n default service/review-service 50003:50003 --address 0.0.0.0
+./portf.sh
 ```
