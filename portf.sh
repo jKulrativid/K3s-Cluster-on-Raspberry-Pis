@@ -13,7 +13,7 @@ do
 	kubectl port-forward service/review-service 50003:50003 &
     PID5=$!  # Capture the process ID of the last backgrounded command
 
-    sleep 20  # Wait for 5 seconds before terminating the port-forward
+    sleep 40  # Wait for 5 seconds before terminating the port-forward
 
     # Kill the port-forward process to avoid multiple instances running concurrently
     kill $PID1 >/dev/null 2>&1  # Suppress errors in case the process doesn't exist
