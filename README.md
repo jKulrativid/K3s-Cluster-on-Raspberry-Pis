@@ -67,7 +67,7 @@ sudo apt install -y vim curl wget net-tools
 
 #### Install K3s
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.56.113" K3S_URL=https://192.168.56.112:6443 K3S_ARGS="--kube-apiserver-arg=default-not-ready-toleration-seconds=5 --kube-apiserver-arg=default-unreachable-toleration-seconds=5 --kube-apiserver-arg=default-uncordon-toleration-seconds=5 --kube-apiserver-arg=default-delete-local-data-delay=5 --kube-apiserver-arg=default-pod-eviction-timeout=5s --kube-apiserver-arg=default-pod-eviction-headroom=5s" K3S_TOKEN=<YOUR TOKEN> sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --node-ip=192.168.56.113" K3S_URL=https://192.168.56.112:6443 K3S_ARGS="--kube-apiserver-arg=default-not-ready-toleration-seconds=5 --kube-apiserver-arg=default-unreachable-toleration-seconds=5 --kube-apiserver-arg=default-uncordon-toleration-seconds=5 --kube-apiserver-arg=default-delete-local-data-delay=5 --kube-apiserver-arg=default-pod-eviction-timeout=5s --kube-apiserver-arg=default-pod-eviction-headroom=5s" K3S_TOKEN=<YOUR TOKEN> sh -
 ```
 
 #### Taint the node in master-1 so that no pod will be schedule here
